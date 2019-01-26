@@ -2,8 +2,10 @@
   "name": "mvp",
   "version": "1.0.0",
   "description": "get yourself in order",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "dev": "webpack --mode development ./client/app.js",
+    "build": "webpack --mode production ./client/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/SeanCMeyer/MVP-bills-tracker/issues"
   },
-  "homepage": "https://github.com/SeanCMeyer/MVP-bills-tracker#readme"
+  "homepage": "https://github.com/SeanCMeyer/MVP-bills-tracker#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
 }
