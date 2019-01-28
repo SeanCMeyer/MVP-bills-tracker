@@ -8,27 +8,31 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentAnimalID: 1
+      currentAnimal: null
     };
   }
+  getRandomAnimal() {
+    axios
+      .get("/api/getRandomAnimal")
+      .then(res => {
+        this.setState({
+          currentAnimal: res
+        });
+      })
+      .catch(err => console.error(err));
+  }
+
+  handleClick() {}
 
   componentDidMount() {
-    this.getAnimal();
-  }
-
-  getAnimal(animalID) {
-    axios.get("");
-  }
-
-  handleClick() {
-    console.log("hi I'm getting a pet");
+    this.getRandomAnimal();
   }
 
   render() {
     return (
       <div>
         <SelectionBar handleClick={this.handleClick} />
-        <AnimalView />
+        <AnimalView currentAnimal={this.state.currentAnimal} />
         <p>Hi There</p>
       </div>
     );
