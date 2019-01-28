@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./server/server.js",
-    "dev": "webpack --mode development ./client/index.js --module-bind js=babel-loader",
+    "dev": "webpack --mode development -w ./client/index.js --module-bind js=babel-loader",
     "build": "webpack --mode production ./client/index.js --module-bind js=babel-loader",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,7 +33,10 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.4",
-    "mongoose": "^5.4.6"
+    "mongoose": "^5.4.7",
+    "react-flexbox-grid": "^2.1.2",
+    "reactstrap": "^7.1.0"
   }
 }

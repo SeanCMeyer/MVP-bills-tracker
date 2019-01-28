@@ -1,9 +1,36 @@
 import React, { Component } from "react";
+import SelectionBar from "./SelectionBar";
+import AnimalView from "./AnimalView";
+import axios from "axios";
+require("dotenv").config();
 
-class App extends Component {
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentAnimalID: 1
+    };
+  }
+
+  componentDidMount() {
+    this.getAnimal();
+  }
+
+  getAnimal(animalID) {
+    axios.get("");
+  }
+
+  handleClick() {
+    console.log("hi I'm getting a pet");
+  }
+
   render() {
-    return <div>Hi There</div>;
+    return (
+      <div>
+        <SelectionBar handleClick={this.handleClick} />
+        <AnimalView />
+        <p>Hi There</p>
+      </div>
+    );
   }
 }
-
-export default App;
