@@ -14,28 +14,50 @@ app.use(cors());
 
 app.post("/api/saveAnimal/", (req, res) => {
   data = req.body;
-  console.log(data);
   db.insertBill(data, (err, response) => {
     err ? res.status(412).send() : res.status(200).send(response);
   });
 });
 
 // The API I am using send the response on res.data.petfinder.pet instead of res.body
+// pet types:
+// barnyard, bird, cat, dog, horse, reptile, smallfurry
 
-app.get("/api/getRandomAnimal", (req, res) => {
-  console.log("working on it");
+app.get("/api/getAnimal/:animal", (req, res) => {
+  const { animal } = req.params;
+  console.log(animal);
   axios
     .get(
       `http://api.petfinder.com/pet.getRandom?format=json&key=${
         process.env.KEY
-      }&animal=dog&output=basic`
+      }&animal=${animal}&output=basic`
     )
     .then(response => {
-      //   console.log(response.data.petfinder.pet);
       const petInfo = response.data.petfinder.pet;
       res.status(200).send(petInfo);
     })
-    .catch(err => res.status(412).send(err));
+    .catch(err => {
+      console.log(err);
+      res.status(412).send(err);
+    });
 });
+
+// app.get("/api/getShelterList/:zip", (req, res) => {
+//   const zip = req.params.zip;
+//   axios
+//     .get(
+//       `http://api.petfinder.com/shelter.find?format=json&location&=${zip}&key=${
+//         process.env.KEY
+//       }&name=full`
+//     )
+//     .then(response => {
+//       const shelterInfo = response.data.petfinder.header.message.info.location.$t;
+//       console.log(shelterInfo);
+//       // res.status(200).send(response);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// });
 
 app.listen(port, () => console.log(`Listening on port: ${port} boss!!`));

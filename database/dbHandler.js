@@ -13,7 +13,7 @@ db.on("connected", () => {
   console.log("connected to DB boss!");
 });
 db.on("error", () => {
-  console.log("I'm sorry, but we've failed out connection attempt!!!", err);
+  console.log("I'm sorry, but we've failed our connection attempt!!!", err);
 });
 
 const billSchema = new Schema({

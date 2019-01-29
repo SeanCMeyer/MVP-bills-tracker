@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import SelectionBar from "./SelectionBar";
+import PetSelection from "./PetSelection";
 import AnimalView from "./AnimalView";
 import axios from "axios";
+import { Jumbotron, Container, Row, Col } from "reactstrap";
 require("dotenv").config();
 
 export default class App extends Component {
@@ -10,10 +11,12 @@ export default class App extends Component {
     this.state = {
       currentAnimal: null
     };
+    this.getAnimal = this.getAnimal.bind(this);
+    // this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
-  getRandomAnimal() {
+  getAnimal(animal) {
     axios
-      .get("/api/getRandomAnimal")
+      .get(`/api/getAnimal/${animal}`)
       .then(res => {
         this.setState({
           currentAnimal: res
@@ -22,18 +25,51 @@ export default class App extends Component {
       .catch(err => console.error(err));
   }
 
-  handleClick() {}
+  // handleFormSubmit(zip) {
+  //   axios
+  //     .get(`/api/getAnimal/${zip}`)
+  //     .then(response => {
+  //       console.log(response);
+  //       // this.setState({
+  //       //   currentShelter: res
+  //       // });
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   componentDidMount() {
-    this.getRandomAnimal();
+    this.getAnimal("dog");
   }
 
   render() {
     return (
       <div>
-        <SelectionBar handleClick={this.handleClick} />
-        <AnimalView currentAnimal={this.state.currentAnimal} />
-        <p>Hi There</p>
+        <Jumbotron fluid>
+          <Container fluid>
+            <Row>
+              <Col sm={{ size: "auto", offset: 4 }}>
+                <h1 className="display-2">Dander!!</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={{ size: "auto", offset: 4 }}>
+                <h5>The pet adoption app!</h5>
+              </Col>
+            </Row>
+          </Container>
+        </Jumbotron>
+        <Container>
+          <Row>
+            <Col>
+              <PetSelection handleClick={this.getAnimal} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <AnimalView currentAnimal={this.state.currentAnimal} />
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
